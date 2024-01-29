@@ -16,6 +16,9 @@ export default function SingleChat() {
   )
   useEffect(() => {
     socket.on("connect", () => console.log(socket.id))
+    socket.on("message", (message: any) => {
+      setMessages([...messages, message])
+    })
     // Clean up the socket connection on component unmount
     return () => {
       console.log("Disconnected from the server")
@@ -59,7 +62,7 @@ export default function SingleChat() {
                   />
                 </div>
                 <div className="ml-3 bg-blue-100 p-3 rounded-lg">
-                  <p className="text-sm text-gray-700">Hello there! 👋</p>
+                  <p className="text-sm text-gray-700">{message?.message} 👋</p>
                 </div>
               </div>
             ))}
